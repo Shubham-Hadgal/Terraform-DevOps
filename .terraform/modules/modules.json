@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"resource_group","Source":"./modules/Resource-Group","Dir":"modules/Resource-Group"},{"Key":"storage_account","Source":"./modules/Storage-Account","Dir":"modules/Storage-Account"},{"Key":"virtual_machine","Source":"./modules/Virtual-Machine","Dir":"modules/Virtual-Machine"}]}
