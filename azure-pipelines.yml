@@ -16,7 +16,7 @@ stages:
 
     - task: TerraformInstaller@0
       inputs:
-        terraformVersion: '1.0.11'  # Specify the Terraform version you want to use
+        terraformVersion: '1.9.5'  # Specify the Terraform version you want to use
 
     - task: TerraformTaskV2@2
       inputs:
