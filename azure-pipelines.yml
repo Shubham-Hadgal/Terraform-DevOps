@@ -18,6 +18,10 @@ stages:
       inputs:
         terraformVersion: '1.9.5'  # Specify the Terraform version you want to use
 
+    - script: |
+        az login --identity
+      displayName: 'Azure CLI Login with Managed Identity'
+
     - task: TerraformTaskV2@2
       inputs:
         provider: 'azurerm'
