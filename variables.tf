@@ -29,16 +29,16 @@ variable "vm_name" {
   type        = string
 }
 
-variable "admin_username" {
-  description = "The admin username for the virtual machine"
-  type        = string
-}
+# variable "admin_username" {
+#   description = "The admin username for the virtual machine"
+#   type        = string
+# }
 
-variable "admin_password" {
-  description = "The admin password for the virtual machine"
-  type        = string
-  sensitive = true
-}
+# variable "admin_password" {
+#   description = "The admin password for the virtual machine"
+#   type        = string
+#   sensitive = true
+# }
 
 variable "storage_account_name" {
   description = "The name of the storage account"

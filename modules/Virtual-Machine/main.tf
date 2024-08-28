@@ -1,34 +1,34 @@
-resource "azurerm_virtual_network" "example" {
+resource "azurerm_virtual_network" "terraform-devops-vnet" {
   name                = var.vnet_name
   address_space       = ["10.0.0.0/16"]
   location            = var.location
   resource_group_name = var.resource_group_name
 }
 
-resource "azurerm_subnet" "example" {
+resource "azurerm_subnet" "terraform-devops-subnet" {
   name                 = var.subnet_name
   resource_group_name  = var.resource_group_name
-  virtual_network_name = azurerm_virtual_network.example.name
-  address_prefixes     = ["10.0.2.0/24"]
+  virtual_network_name = azurerm_virtual_network.terraform-devops-vnet.name
+  address_prefixes     = ["10.0.0.0/26"]
 }
 
-resource "azurerm_network_interface" "example" {
+resource "azurerm_network_interface" "vm-nic" {
   name                = var.nic_name
   location            = var.location
   resource_group_name = var.resource_group_name
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = azurerm_subnet.example.id
+    subnet_id                     = azurerm_subnet.terraform-devops-subnet.id
     private_ip_address_allocation = "Dynamic"
   }
 }
 
-resource "azurerm_virtual_machine" "example" {
+resource "azurerm_virtual_machine" "TerraformDevOpsVM" {
   name                  = var.vm_name
   location              = var.location
   resource_group_name   = var.resource_group_name
-  network_interface_ids = [azurerm_network_interface.example.id]
+  network_interface_ids = [azurerm_network_interface.vm-nic.id]
   vm_size               = "Standard_DS1_v2"
 
   storage_os_disk {
