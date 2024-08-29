@@ -24,11 +24,6 @@ stages:
         versionSpec: '3.x'
         addToPath: true
 
-    - script: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-      displayName: 'Install dependencies'
-
     - task: TerraformInstaller@0
       inputs:
         terraformVersion: 'latest'
