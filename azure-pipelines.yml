@@ -8,6 +8,14 @@ steps:
   - task: TerraformInstaller@1
     inputs:
       terraformVersion: 'latest'
+
+  - task: AzureCLI@2
+    inputs:
+      azureSubscription: 'azure-spn'
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: 'az login --service-principal -u $(servicePrincipalId) -p $(servicePrincipalKey) --tenant $(tenantId)'
+
   - task: TerraformTaskV4@4
     inputs:
       provider: 'azurerm'
@@ -18,12 +26,14 @@ steps:
       backendAzureRmStorageAccountName: 'terraformbackendshubh'
       backendAzureRmContainerName: 'tfstate'
       backendAzureRmKey: 'terraform.tfstate'
+
   - task: TerraformTaskV4@4
     inputs:
       provider: 'azurerm'
       command: 'plan'
       commandOptions: '-out=tfplan'
       environmentServiceNameAzureRM: 'azure-spn'
+
   - task: TerraformTaskV4@4
     inputs:
       provider: 'azurerm'
