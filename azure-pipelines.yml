@@ -1,42 +1,45 @@
 trigger:
-- master
+  branches:
+    include:
+      - master
 
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  - name: 'TF_VAR_client_id'
+    value: '$(servicePrincipalId)'
+  - name: 'TF_VAR_client_secret'
+    value: '$(servicePrincipalKey)'
+  - name: 'TF_VAR_subscription_id'
+    value: '$(subscriptionId)'
+  - name: 'TF_VAR_tenant_id'
+    value: '$(tenantId)'
+
 steps:
-  - task: TerraformInstaller@1
+  - task: TerraformInstaller@0
     inputs:
       terraformVersion: 'latest'
 
-  - task: AzureCLI@2
-    inputs:
-      azureSubscription: 'azure-spn'
-      scriptType: 'bash'
-      scriptLocation: 'inlineScript'
-      inlineScript: 'az login --service-principal -u $(servicePrincipalId) -p $(servicePrincipalKey) --tenant $(tenantId)'
-
-  - task: TerraformTaskV4@4
+  - task: TerraformTaskV2@2
     inputs:
       provider: 'azurerm'
       command: 'init'
-      commandOptions: '-migrate-state'
-      backendServiceArm: 'azure-spn'
-      backendAzureRmResourceGroupName: 'Terraform-Backend'
-      backendAzureRmStorageAccountName: 'terraformbackendshubh'
-      backendAzureRmContainerName: 'tfstate'
-      backendAzureRmKey: 'terraform.tfstate'
+      workingDirectory: '$(System.DefaultWorkingDirectory)'
+    displayName: 'Terraform Init'
 
-  - task: TerraformTaskV4@4
+  - task: TerraformTaskV2@2
     inputs:
       provider: 'azurerm'
       command: 'plan'
+      workingDirectory: '$(System.DefaultWorkingDirectory)'
       commandOptions: '-out=tfplan'
-      environmentServiceNameAzureRM: 'azure-spn'
+    displayName: 'Terraform Plan'
 
-  - task: TerraformTaskV4@4
+  - task: TerraformTaskV2@2
     inputs:
       provider: 'azurerm'
       command: 'apply'
+      workingDirectory: '$(System.DefaultWorkingDirectory)'
       commandOptions: '-auto-approve tfplan'
-      environmentServiceNameAzureRM: 'azure-spn'
+    displayName: 'Terraform Apply'
