@@ -1,20 +1,13 @@
 trigger:
   branches:
     include:
-      - master
+      - '*'
 
 pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  - name: 'TF_VAR_client_id'
-    value: '$(servicePrincipalId)'
-  - name: 'TF_VAR_client_secret'
-    value: '$(servicePrincipalKey)'
-  - name: 'TF_VAR_subscription_id'
-    value: '$(subscriptionId)'
-  - name: 'TF_VAR_tenant_id'
-    value: '$(tenantId)'
+  - group: TerraformVariables
 
 steps:
   - task: TerraformInstaller@0
@@ -25,21 +18,22 @@ steps:
     inputs:
       provider: 'azurerm'
       command: 'init'
-      workingDirectory: '$(System.DefaultWorkingDirectory)'
-    displayName: 'Terraform Init'
+      backendServiceArm: 'azure-spn'
+      backendAzureRmResourceGroupName: '$(resourceGroupName)'
+      backendAzureRmStorageAccountName: '$(storageAccountName)'
+      backendAzureRmContainerName: '$(containerName)'
+      backendAzureRmKey: '$(tfstateFileName)'
 
   - task: TerraformTaskV2@2
     inputs:
       provider: 'azurerm'
       command: 'plan'
-      workingDirectory: '$(System.DefaultWorkingDirectory)'
+      environmentServiceNameAzureRM: 'azure-spn'
       commandOptions: '-out=tfplan'
-    displayName: 'Terraform Plan'
 
   - task: TerraformTaskV2@2
     inputs:
       provider: 'azurerm'
       command: 'apply'
-      workingDirectory: '$(System.DefaultWorkingDirectory)'
+      environmentServiceNameAzureRM: 'azure-spn'
       commandOptions: '-auto-approve tfplan'
-    displayName: 'Terraform Apply'
