@@ -18,6 +18,7 @@ steps:
     inputs:
       provider: 'azurerm'
       command: 'init'
+      commandOptions: '-migrate-state'
       backendServiceArm: 'azure-spn'
       backendAzureRmResourceGroupName: '$(resourceGroupName)'
       backendAzureRmStorageAccountName: '$(storageAccountName)'
