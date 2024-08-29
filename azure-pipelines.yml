@@ -12,6 +12,7 @@ steps:
     inputs:
       provider: 'azurerm'
       command: 'init'
+      commandOptions: '-migrate-state'
       backendServiceArm: 'azure-spn'
       backendAzureRmResourceGroupName: 'Terraform-Backend'
       backendAzureRmStorageAccountName: 'terraformbackendshubh'
