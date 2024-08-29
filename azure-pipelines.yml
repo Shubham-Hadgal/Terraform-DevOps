@@ -4,45 +4,28 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-stages:
-- stage: Terraform
-  jobs:
-  - job: Terraform
-    steps:
-    - task: UsePythonVersion@0
-      inputs:
-        versionSpec: '3.x'
-        addToPath: true
-
-    - task: TerraformInstaller@0
-      inputs:
-        terraformVersion: '1.9.5'  # Specify the Terraform version you want to use
-
-    - script: |
-        az login --identity
-      displayName: 'Azure CLI Login with Managed Identity'
-
-    - task: TerraformTaskV2@2
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        backendServiceArm: 'AzureServiceConnection'  # Name of your service connection
-        backendAzureRmResourceGroupName: '$(backendResourceGroupName)'
-        backendAzureRmStorageAccountName: '$(backendStorageAccountName)'
-        backendAzureRmContainerName: '$(backendContainerName)'
-        backendAzureRmKey: '$(backendKey)'
-        commandOptions: '-migrate-state'
-
-    - task: TerraformTaskV2@2
-      inputs:
-        provider: 'azurerm'
-        command: 'plan'
-        environmentServiceNameAzureRM: 'AzureServiceConnection'  # Name of your service connection
-        commandOptions: '-out=tfplan'
-
-    - task: TerraformTaskV2@2
-      inputs:
-        provider: 'azurerm'
-        command: 'apply'
-        environmentServiceNameAzureRM: 'AzureServiceConnection'  # Name of your service connection
-        commandOptions: '-auto-approve tfplan'
+steps:
+  - task: TerraformInstaller@1
+    inputs:
+      terraformVersion: 'latest'
+  - task: TerraformTaskV4@4
+    inputs:
+      provider: 'azurerm'
+      command: 'init'
+      backendServiceArm: 'azure-spn'
+      backendAzureRmResourceGroupName: 'Terraform-Backend'
+      backendAzureRmStorageAccountName: 'terraformbackendshubh'
+      backendAzureRmContainerName: 'tfstate'
+      backendAzureRmKey: 'terraform.tfstate'
+  - task: TerraformTaskV4@4
+    inputs:
+      provider: 'azurerm'
+      command: 'plan'
+      commandOptions: '-out=tfplan'
+      environmentServiceNameAzureRM: 'azure-spn'
+  - task: TerraformTaskV4@4
+    inputs:
+      provider: 'azurerm'
+      command: 'apply'
+      commandOptions: '-auto-approve tfplan'
+      environmentServiceNameAzureRM: 'azure-spn'
