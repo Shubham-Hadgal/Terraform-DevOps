@@ -44,7 +44,7 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'plan'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/modules'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
     backendServiceArm: 'azure-spn'
     backendAzureRmResourceGroupName: 'Terraform-Backend'
     backendAzureRmStorageAccountName: 'terraformbackendshubh'
