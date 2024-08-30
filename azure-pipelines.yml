@@ -29,11 +29,36 @@ steps:
   inputs:
     terraformVersion: 'latest'
 
-- script: terraform init
-  displayName: 'Terraform Init'
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+    backendServiceArm: 'azure-spn'
+    backendAzureRmResourceGroupName: 'Terraform-Backend'
+    backendAzureRmStorageAccountName: 'terraformbackendshubh'
+    backendAzureRmContainerName: 'tfstate'
+    backendAzureRmKey: 'terraform.tfstate'
 
-- script: terraform plan
-  displayName: 'Terraform Plan'
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+    backendServiceArm: 'azure-spn'
+    backendAzureRmResourceGroupName: 'Terraform-Backend'
+    backendAzureRmStorageAccountName: 'terraformbackendshubh'
+    backendAzureRmContainerName: 'tfstate'
+    backendAzureRmKey: 'terraform.tfstate'
 
-- script: terraform apply -auto-approve
-  displayName: 'Terraform Apply'
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+    backendServiceArm: 'azure-spn'
+    backendAzureRmResourceGroupName: 'Terraform-Backend'
+    backendAzureRmStorageAccountName: 'terraformbackendshubh'
+    backendAzureRmContainerName: 'tfstate'
+    backendAzureRmKey: 'terraform.tfstate'
+    commandOptions: '-auto-approve'
