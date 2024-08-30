@@ -17,6 +17,7 @@ steps:
     addToPath: true
 
 - task: AzureCLI@2
+  displayName: Az Login
   inputs:
     azureSubscription: 'azure-spn'
     scriptType: 'bash'
@@ -26,6 +27,7 @@ steps:
       az account set --subscription $(ARM_SUBSCRIPTION_ID)
 
 - task: TerraformInstaller@0
+  displayName: Installing Terraform
   inputs:
     terraformVersion: 'latest'
 
@@ -39,6 +41,7 @@ steps:
     backendAzureRmStorageAccountName: 'terraformbackendshubh'
     backendAzureRmContainerName: 'tfstate'
     backendAzureRmKey: 'terraform.tfstate'
+  displayName: Terraform Init
 
 - task: TerraformTaskV2@2
   inputs:
@@ -51,6 +54,7 @@ steps:
     backendAzureRmContainerName: 'tfstate'
     backendAzureRmKey: 'terraform.tfstate'
     environmentServiceNameAzureRM: 'azure-spn'
+  displayName: Terraform Plan
 
 - task: TerraformTaskV2@2
   inputs:
@@ -64,3 +68,4 @@ steps:
     backendAzureRmKey: 'terraform.tfstate'
     commandOptions: '-auto-approve'
     environmentServiceNameAzureRM: 'azure-spn'
+  displayName: Terraform Apply
