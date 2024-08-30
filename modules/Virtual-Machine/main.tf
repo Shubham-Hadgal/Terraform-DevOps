@@ -1,12 +1,3 @@
-provider "azurerm" {
-  features {
-    resource_group {
-      prevent_deletion_if_contains_resources = false
-    }
-  }
-  subscription_id = "1abf7039-62fb-4750-aaeb-00746889d30f"
-}
-
 resource "azurerm_virtual_network" "terraform-devops-vnet" {
   name                = var.vnet_name
   address_space       = ["10.0.0.0/16"]
