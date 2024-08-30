@@ -44,12 +44,13 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'plan'
-    workingDirectory: '$(System.DefaultWorkingDirectory)'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/modules'
     backendServiceArm: 'azure-spn'
     backendAzureRmResourceGroupName: 'Terraform-Backend'
     backendAzureRmStorageAccountName: 'terraformbackendshubh'
     backendAzureRmContainerName: 'tfstate'
     backendAzureRmKey: 'terraform.tfstate'
+    environmentServiceNameAzureRM: 'azure-spn'
 
 - task: TerraformTaskV2@2
   inputs:
@@ -62,3 +63,4 @@ steps:
     backendAzureRmContainerName: 'tfstate'
     backendAzureRmKey: 'terraform.tfstate'
     commandOptions: '-auto-approve'
+    environmentServiceNameAzureRM: 'azure-spn'
