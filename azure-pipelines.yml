@@ -12,6 +12,7 @@ variables:
 
 steps:
 - task: UsePythonVersion@0
+  displayName: Installing Python
   inputs:
     versionSpec: '3.x'
     addToPath: true
