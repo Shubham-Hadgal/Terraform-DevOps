@@ -1,0 +1,41 @@
+trigger:
+  branches:
+    include:
+      - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  ARM_CLIENT_ID: $(servicePrincipalId)
+  ARM_CLIENT_SECRET: $(servicePrincipalKey)
+  ARM_SUBSCRIPTION_ID: $(subscriptionId)
+  ARM_TENANT_ID: $(tenantId)
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    addToPath: true
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'azure-spn'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az login --service-principal -u $(ARM_CLIENT_ID) -p $(ARM_CLIENT_SECRET) --tenant $(ARM_TENANT_ID)
+      az account set --subscription $(ARM_SUBSCRIPTION_ID)
+
+- task: TerraformInstaller@0
+  inputs:
+    terraformVersion: 'latest'
+
+- script: terraform init
+  displayName: 'Terraform Init'
+
+- script: terraform plan
+  displayName: 'Terraform Plan'
+
+- script: terraform apply -auto-approve
+  displayName: 'Terraform Apply'
