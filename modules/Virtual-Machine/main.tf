@@ -1,3 +1,11 @@
+provider "azurerm" {
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
+}
+
 resource "azurerm_virtual_network" "terraform-devops-vnet" {
   name                = var.vnet_name
   address_space       = ["10.0.0.0/16"]
