@@ -22,11 +22,11 @@ provider "azurerm" {
 #   key_vault_id = data.azurerm_key_vault.keyvault.id
 # }
 
-module "resource_group" {
-  source              = "./modules/Resource-Group"
-  resource_group_name = var.resource_group_name
-  location            = var.location
-}
+# module "resource_group" {
+#   source              = "./modules/Resource-Group"
+#   resource_group_name = var.resource_group_name
+#   location            = var.location
+# }
 
 # module "virtual_machine" {
 #   source              = "./modules/Virtual-Machine"
@@ -40,12 +40,12 @@ module "resource_group" {
 #   admin_password      = data.azurerm_key_vault_secret.admin_password.value
 # }
 
-module "storage_account" {
-  source                = "./modules/Storage-Account"
-  resource_group_name   = module.resource_group.resource_group_name
-  location              = var.location
-  storage_account_name  = var.storage_account_name
-}
+# module "storage_account" {
+#   source                = "./modules/Storage-Account"
+#   resource_group_name   = module.resource_group.resource_group_name
+#   location              = var.location
+#   storage_account_name  = var.storage_account_name
+# }
 
 terraform {
   backend "azurerm" {
