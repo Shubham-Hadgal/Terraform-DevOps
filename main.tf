@@ -5,9 +5,6 @@ provider "azurerm" {
     }
   }
   subscription_id = "1abf7039-62fb-4750-aaeb-00746889d30f"
-  client_id = "becf341f-c070-495a-8635-0a17193dae58"
-  client_secret = "Gts8Q~e97y737M42B-gOoZIxIN1SuK2h1VFAldtw"
-  tenant_id = "becf341f-c070-495a-8635-0a17193dae58"
 }
 
 data "azurerm_key_vault" "keyvault" {
