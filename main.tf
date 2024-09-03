@@ -21,17 +21,19 @@ provider "azurerm" {
 #   key_vault_id = data.azurerm_key_vault.keyvault.id
 # }
 
-module "resource_group" {
-  source              = "./modules/Resource-Group"
-  resource_group_name = var.resource_group_name
-  location            = var.location
-}
+# module "resource_group" {
+#   source              = "./modules/Resource-Group"
+#   resource_group_name = var.resource_group_name
+#   location            = var.location
+# }
 
 # module "virtual_machine" {
 #   source              = "./modules/Virtual-Machine"
 #   resource_group_name = module.resource_group.resource_group_name
 #   location            = var.location
 #   vnet_name           = var.vnet_name
+#   delete_data_disks_on_termination = var.delete_data_disks_on_termination
+#   delete_os_disk_on_termination = var.delete_os_disk_on_termination
 #   subnet_name         = var.subnet_name
 #   nic_name            = var.nic_name
 #   vm_name             = var.vm_name

@@ -29,6 +29,16 @@ variable "vm_name" {
   type        = string
 }
 
+variable "delete_os_disk_on_termination" {
+  description = "delete_os_disk_on_termination"
+  type = bool
+}
+
+variable "delete_data_disks_on_termination" {
+  description = "delete_data_disks_on_termination"
+  type = bool
+}
+
 # variable "admin_username" {
 #   description = "The admin username for the virtual machine"
 #   type        = string

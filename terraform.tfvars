@@ -11,3 +11,5 @@ storage_account_name        = "terraformdevopsvmstg"
 # backend_storage_account_name = "terraformbackendshubh"
 # backend_container_name      = "tfstate"
 # backend_key                 = "terraform.tfstate"
+delete_data_disks_on_termination = true
+delete_os_disk_on_termination = true
