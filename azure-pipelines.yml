@@ -11,12 +11,6 @@ variables:
   ARM_TENANT_ID: $(tenantId)
 
 steps:
-- task: UsePythonVersion@0
-  displayName: Installing Python
-  inputs:
-    versionSpec: '3.x'
-    addToPath: true
-
 - task: AzureCLI@2
   displayName: Az Login
   inputs:
