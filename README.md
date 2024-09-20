@@ -43,9 +43,7 @@
 6. **Troubleshooting:**
    * Common issues and their solutions
    * Error messages and their interpretations
-7. **Additional Resources:**
-   * Links to relevant documentation and tutorials
-   * Community forums and support channels
+
 
 **Content Examples:**
 
