@@ -1,6 +1,5 @@
 # Infrastructure(IaC) CI/CD Terraform - Azure DevOps
 
-![ABB_MoGe_Infra_Pipeline](https://github.com/user-attachments/assets/86e12160-315d-439a-9684-f425c5012db7)
 
 **Key Components and Flow:**
 
