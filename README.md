@@ -1,6 +1,10 @@
 # Infrastructure(IaC) CI/CD Terraform - Azure DevOps
 
 
+![Untitled-2024-09-20-1645](https://github.com/user-attachments/assets/7dafee68-8c87-4ee0-ad97-e1c671fa300c)
+
+
+
 **Key Components and Flow:**
 
 1. **User:** Initiates code changes (e.g., Terraform configuration files) in a development branch.
